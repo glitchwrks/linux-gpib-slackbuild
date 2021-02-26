@@ -79,13 +79,27 @@ chown -R root:root .
 
 cd $ARCHIVEROOT-kernel-$VERSION
 
+# Patch Makefile to install kernel modules in build environment and
+# skip `depmod`
+
+patch Makefile < $CWD/patches/Makefile.patch
+
 make all || exit
-make install DESTDIR=$PKG || exit
+make install DESTDIR=$PKG INSTALL_MOD_PATH=$DESTDIR RUN_DEPMOD=N || exit
 
 cd ../$ARCHIVEROOT-user-$VERSION
 ./configure --sysconfdir=/etc --disable-php-binding
 make || exit
 make install DESTDIR=$PKG || exit
+
+# move config files to .new
+cd $PKG/etc
+mv gpib.conf gpib.conf.new
+cd udev/rules.d
+
+for file in $(find . -type f); do
+	mv $file "$file.new"
+done
 
 mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION
 cat $CWD/$PRGNAM.SlackBuild > $PKG/usr/doc/$PRGNAM-$VERSION/$PRGNAM.SlackBuild
