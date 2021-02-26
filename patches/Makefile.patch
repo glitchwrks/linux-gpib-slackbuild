@@ -1,5 +1,5 @@
 --- Makefile.orig	2021-02-26 11:55:38.878276909 -0500
-+++ Makefile	2021-02-26 12:45:25.916851091 -0500
++++ Makefile	2021-02-26 12:58:06.676841144 -0500
 @@ -1,4 +1,4 @@
 -# Makefile
 +# Patched Makefile for Slackbuild
@@ -23,7 +23,7 @@
  all:
  	$(MAKE) -C $(LINUX_SRCDIR) V=$(VERBOSE) modules \
  		M="$(GPIB_SRCDIR)/drivers/gpib" \
-@@ -20,13 +30,13 @@
+@@ -20,13 +30,14 @@
  		M="$(GPIB_SRCDIR)/drivers/gpib" \
  		GPIB_TOP_DIR=$(GPIB_SRCDIR) 
  
@@ -34,9 +34,11 @@
  	$(MAKE) -C $(LINUX_SRCDIR) V=$(VERBOSE) modules_install\
  		M="$(GPIB_SRCDIR)/drivers/gpib" \
  		GPIB_TOP_DIR=$(GPIB_SRCDIR) \
- 		INSTALL_MOD_DIR=gpib
+-		INSTALL_MOD_DIR=gpib
 -	/sbin/depmod -A
-+		INSTALL_MOD_PATH=$(INSTALL_MOD_PATH)
++		INSTALL_MOD_DIR=gpib \
++		INSTALL_MOD_PATH=$(INSTALL_MOD_PATH) \
++		DEPMOD=0
  
 +ifeq ($(RUN_DEPMOD), 'Y')
 +	/sbin/depmod -A
