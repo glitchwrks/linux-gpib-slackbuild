@@ -85,7 +85,7 @@ cd $ARCHIVEROOT-kernel-$VERSION
 patch Makefile < $CWD/patches/Makefile.patch
 
 make all || exit
-make install DESTDIR=$PKG INSTALL_MOD_PATH=$PKG RUN_DEPMOD=N || exit
+make install DESTDIR=$PKG RUN_DEPMOD=N || exit
 
 cd ../$ARCHIVEROOT-user-$VERSION
 ./configure --sysconfdir=/etc --disable-php-binding
@@ -105,6 +105,7 @@ mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION
 cat $CWD/$PRGNAM.SlackBuild > $PKG/usr/doc/$PRGNAM-$VERSION/$PRGNAM.SlackBuild
 
 mkdir -p $PKG/install
+cat $CWD/doinst.sh > $PKG/install/doinst.sh
 cat $CWD/slack-desc > $PKG/install/slack-desc
 
 cd $PKG

@@ -1,18 +1,15 @@
 --- Makefile.orig	2021-02-26 11:55:38.878276909 -0500
-+++ Makefile	2021-02-26 12:58:06.676841144 -0500
++++ Makefile	2021-02-26 13:37:13.032538429 -0500
 @@ -1,4 +1,4 @@
 -# Makefile
 +# Patched Makefile for Slackbuild
  
  GPIB_SRCDIR ?= $(CURDIR)
  LINUX_SRCDIR ?= /lib/modules/`uname -r`/build
-@@ -6,6 +6,16 @@
+@@ -6,6 +6,13 @@
  ENABLE_PCMCIA ?= 0
  GPIB_DEBUG ?= 0
  
-+# Module path prefix, used for building packages
-+INSTALL_MOD_PATH ?= ''
-+
 +# Run depmod during install target if set to Y, defaults to YES
 +# 
 +# We run depmod explicitly because the depmod.sh script run
@@ -23,7 +20,7 @@
  all:
  	$(MAKE) -C $(LINUX_SRCDIR) V=$(VERBOSE) modules \
  		M="$(GPIB_SRCDIR)/drivers/gpib" \
-@@ -20,13 +30,14 @@
+@@ -20,13 +27,14 @@
  		M="$(GPIB_SRCDIR)/drivers/gpib" \
  		GPIB_TOP_DIR=$(GPIB_SRCDIR) 
  
@@ -37,7 +34,7 @@
 -		INSTALL_MOD_DIR=gpib
 -	/sbin/depmod -A
 +		INSTALL_MOD_DIR=gpib \
-+		INSTALL_MOD_PATH=$(INSTALL_MOD_PATH) \
++		INSTALL_MOD_PATH=$(DESTDIR) \
 +		DEPMOD=0
  
 +ifeq ($(RUN_DEPMOD), 'Y')
