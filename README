@@ -1,0 +1,14 @@
+This plugin adds support to Python Pygments for syntax highlighting router
+configuration files. It is intended to build from a GitHub ZIP archive, since
+no other form of distribution exists for this project. By default, it assumes
+you will be building against the `master` branch with an archive called
+`master.zip`
+
+If you're building against a branch other than master, you can set the BRANCH
+environment variable:
+
+BRANCH="your_topic_branch" ./Pygments-RouterLexers.SlackBuild
+
+Note that the MD5 sum is correct for the 0.3.2 release of this plugin; however,
+the author does not currently tag releases so you may end up with a snapshot
+of `master` that has a different MD5!
