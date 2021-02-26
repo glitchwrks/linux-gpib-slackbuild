@@ -69,17 +69,22 @@ rm -rf $PKG
 mkdir -p $TMP $PKG $OUTPUT
 cd $TMP
 rm -rf $ARCHIVEROOT-$VERSION
+
 tar zxvf $CWD/$ARCHIVEROOT-$VERSION.tar.gz
 cd $ARCHIVEROOT-$VERSION
-
-tar zxvf $CWD/$ARCHIVEROOT-$VERSION/$ARCHIVEROOT-kernel-$VERSION.tar.gz
-tar zxvf $CWD/$ARCHIVEROOT-$VERSION/$ARCHIVEROOT-user-$VERSION.tar.gz
+tar zxvf $ARCHIVEROOT-kernel-$VERSION.tar.gz
+tar zxvf $ARCHIVEROOT-user-$VERSION.tar.gz
 
 chown -R root:root .
 
 cd $ARCHIVEROOT-kernel-$VERSION
 
 make all || exit
+make install DESTDIR=$PKG || exit
+
+cd ../$ARCHIVEROOT-user-$VERSION
+./configure --sysconfdir=/etc
+make || exit
 make install DESTDIR=$PKG || exit
 
 mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION
