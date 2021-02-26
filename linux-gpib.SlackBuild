@@ -83,7 +83,7 @@ make all || exit
 make install DESTDIR=$PKG || exit
 
 cd ../$ARCHIVEROOT-user-$VERSION
-./configure --sysconfdir=/etc
+./configure --sysconfdir=/etc --disable-php-binding
 make || exit
 make install DESTDIR=$PKG || exit
 
