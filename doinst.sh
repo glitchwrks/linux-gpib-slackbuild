@@ -14,7 +14,7 @@ config() {
 	# Otherwise, we leave the .new copy for the admin to consider...
 }
 
-config etc/gpib.new
+config etc/gpib.conf.new
 config etc/udev/rules.d/99-agilent_82357a.rules.new
 config etc/udev/rules.d/99-ni_usb_gpib.rules.new
 config etc/udev/rules.d/99-lpvo_usb_gpib.rules.new
