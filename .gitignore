@@ -1,2 +1,4 @@
 *.tar.gz
 *~
+patches/Makefile
+patches/Makefile.orig
