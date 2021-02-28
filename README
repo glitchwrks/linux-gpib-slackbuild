@@ -5,7 +5,10 @@ is intended to be compatible with National Instruments' GPIB library.
 Note that the PHP bindings are currently broken and are disabled in this
 SlackBuild.
 
-This SlackBuild includes support for ISA devices, which are disabled by default.
+This SlackBuild does not include firmware required by some GPIB controllers.
+Firmware can be found here:
+
+https://github.com/fmhess/linux_gpib_firmware
 
 Default linux-gpib udev rules expect the group gpib to exist. Create it before
 using the linux-gpib drivers:
